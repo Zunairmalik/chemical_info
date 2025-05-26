@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chemical Info Finder</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Great+Vibes&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #007BFF;
+        }
+        .developer {
+            text-align: center;
+            font-size: 0.95rem;
+            color: #00264d;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input[type="text"] {
+            padding: 15px 12px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: box-shadow 0.3s;
+        }
+        input[type="text"]:focus {
+            box-shadow: 0 0 5px rgba(0,123,255,0.5);
+            outline: none;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result, .error {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            animation: slideIn 0.5s ease forwards;
+        }
+        .result {
+            background: #e0f7fa;
+        }
+        .error {
+            background: #ffcdd2;
+        }
+        .signature {
+             text-align: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 0.9rem; /* chhota size */
+            color: #007BFF;
+            margin-top: 25px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chemical Info Finder</h1>
+        <div class="developer">Developed by Malik Zunair</div>
+
+        <form method="post">
+           <input type="text" name="chemical_name" placeholder="Enter chemical name" 
+       value="{{ chemical_name | default('') }}" required>
+
+            <button type="submit">Get Info</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <p><strong>IUPAC Name:</strong> {{ result.iupac_name }}</p>
+                <p><strong>Common Name:</strong> {{ result.common_name }}</p>
+                <p><strong>Molecular Weight:</strong> {{ result.molecular_weight }}</p>
+                <p><strong>Formula:</strong> {{ result.formula }}</p>
+            </div>
+        {% elif error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <div class="signature">Malik Zunair</div>
+    </div>
+</body>
+</html>
