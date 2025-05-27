@@ -66,3 +66,18 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello from Flask app on Replit!"
+
+# Ye line sab se last me honi chahiye!
+app.run(host='0.0.0.0', port=81)
